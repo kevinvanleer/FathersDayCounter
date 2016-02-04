@@ -1,0 +1,160 @@
+<html>
+<script src="../Chart.js/Chart.js"></script>
+<script>
+
+function formatTime(totalDate) {
+
+   var yearstring = totalDate.getFullYear() - 1970;
+   var monthstring = totalDate.getMonth() + 1;
+   var daystring = totalDate.getDate();
+   var hourstring = totalDate.getHours();
+   var minutestring = totalDate.getMinutes();
+   var secondstring = totalDate.getSeconds();
+   var msstring = totalDate.getMilliseconds();
+
+   var prettystring = yearstring + " years, "; 
+   prettystring += monthstring + " months, ";
+   prettystring += daystring + " days, ";
+   prettystring += hourstring + " hours, ";
+   prettystring += minutestring + " minutes, ";
+   prettystring += secondstring + "." + msstring + " seconds";
+   
+   return prettystring;
+}
+
+function calculateTime() {
+   var dale = new Date(1952, 5, 3);
+   var mark = new Date(1954, 10, 2);
+   var linda = new Date(1955, 9, 4);
+   var tim = new Date(1978, 12, 28);
+   var tom = new Date(1980, 3, 15);
+   var jill = new Date(1981, 7, 30);
+   var kevin = new Date(1981, 8, 30);
+   var james = new Date(1984, 6, 6);
+   var james2 = new Date(1984, 11, 21);
+   var jeff = new Date(1984, 6, 6);
+   var dave = new Date(1984, 7, 18);
+   var joe = new Date(1992, 4, 28);
+   var aidan = new Date(2005, 7, 28, 15, 4);
+   var mariah = new Date(2006, 5, 25);
+   var gavin = new Date(2006, 4, 1);
+   var haley = new Date(2007, 6, 19);
+   var owen = new Date(2007, 7, 30, 5, 30);
+   var max = new Date(2008, 1, 31);
+   var cameron = new Date(2009, 11, 10);
+   var maggie = new Date(2010, 4, 15);
+   var gwen = new Date(2012, 07, 11, 10, 15);
+   var grace = new Date(2013, 12, 13, 16);
+
+   var now = new Date();
+
+   var jessMom = (now - grace);
+
+   var amyMom = (now - gavin);
+   amyMom += (now - cameron);
+
+   var rebeccaMom = (now - haley);
+
+   var lizMom = (now - mariah);
+   lizMom += (now - max);
+   lizMom += (now - maggie);
+
+   var aidanAge = now - aidan;
+   var owenAge = now - owen;
+   var gwenAge = now - gwen;   
+
+   var jillMom = (now - aidan);
+   jillMom += (now - owen);
+   jillMom += (now - gwen);
+
+   var maryMom = (now - jill);
+   maryMom += (james2 - james);
+   maryMom += (now - jeff);
+   maryMom += jillMom;
+   maryMom += amyMom;
+
+   var sandyMom = (now - kevin);
+   sandyMom += (now - dave);
+   sandyMom += jillMom;
+   sandyMom += jessMom;
+
+   var donnaMom = (now - tim);
+   donnaMom += (now - tom);
+   donnaMom += lizMom;
+   donnaMom += rebeccaMom;
+
+   var shirleyMom = (now - dale);
+   shirleyMom += (now - mark);
+   shirleyMom += (now - linda);
+   shirleyMom += (sandyMom);
+   shirleyMom += (donnaMom);
+
+   //var total = jessMom + jillMom + maryMom + sandyMom;
+   var total = jessMom + lizMom + rebeccaMom + jillMom + sandyMom + donnaMom + shirleyMom;
+
+   var totalDate = new Date(total);
+   var jessDate = new Date(jessMom);
+   var rebeccaDate = new Date(rebeccaMom);
+   var lizDate = new Date(lizMom);
+   var jillDate = new Date(jillMom);
+   var maryDate = new Date(maryMom);
+   var sandyDate = new Date(sandyMom);
+   var donnaDate = new Date(donnaMom);
+   var shirleyDate = new Date(shirleyMom);
+   var amyDate = new Date(amyMom);
+
+
+   document.getElementById('time').innerHTML = formatTime(totalDate);
+   document.getElementById('amy').innerHTML = "Jeff: " + formatTime(amyDate);
+   document.getElementById('jill').innerHTML = "Kevin: " + formatTime(jillDate);
+   document.getElementById('liz').innerHTML = "Tom: " + formatTime(lizDate);
+   document.getElementById('rebecca').innerHTML = "Tim: " + formatTime(rebeccaDate);
+   document.getElementById('jess').innerHTML = "Dave: " + formatTime(jessDate);
+   document.getElementById('mary').innerHTML = "Shaggy: " + formatTime(maryDate);
+   document.getElementById('sandy').innerHTML = "Mark: " + formatTime(sandyDate);
+   document.getElementById('donna').innerHTML = "Dale: " + formatTime(donnaDate);
+   document.getElementById('shirley').innerHTML = "Lester: " + formatTime(shirleyDate);
+
+   var timeout = setTimeout(function(){calculateTime()}, 100);
+
+   var barChartData = {
+      labels : [ "Aidan", "Owen", "Gwen" ],
+      datasets : [
+      {
+         fillColor : "rgba(220,220,220,0.5)",
+         strokeColor : "rgba(220,220,220,1)",
+         data : [aidanAge / 10000000 / 3600, owenAge / 10000000 / 3600, gwenAge / 10000000 / 3600]
+      }
+   ]
+   }
+   //Bar.defaults = {
+   //   animation : false
+   //}
+   var myBar = new Chart(document.getElementById("canvas").getContext("2d")).Bar(barChartData, {animation:false});
+}
+
+</script>
+<body onload="calculateTime()">
+<canvas id="canvas" height="450" width="600"></canvas>
+<h1>
+Celebrating our Fathers
+</h1>
+<h2>
+<div id="time"></div>
+<h3>
+<div id="shirley"></div>
+<div id="donna"></div>
+<div id="mary"></div>
+<div id="sandy"></div>
+<div id="jill"></div>
+<div id="liz"></div>
+<div id="rebecca"></div>
+<div id="amy"></div>
+<div id="jess"></div>
+
+<script>
+</script>
+</h3>
+</h2>
+</body>
+</html>
